@@ -1,0 +1,21 @@
+{
+  "name": "el-cljs",
+  "main": "resources/main.js",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "shadow-cljs": "2.8.61"
+  },
+  "dependencies": {
+    "electron": "^8.2.3",
+    "create-react-class": "15.6.3",
+    "react": "16.10.2",
+    "react-dom": "16.10.2"
+  },
+  "scripts": {
+    "dev": "shadow-cljs watch main renderer",
+    "build": "shadow-cljs compile main renderer",
+    "clean": "rm -rf resources/public/js/* && rm -rf target",
+    "electron": "electron ."
+  }
+}
