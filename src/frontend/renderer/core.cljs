@@ -1,14 +1,14 @@
 (ns frontend.renderer.core
-  (:require [reagent.core :as reagent]))
+  (:require [reagent.core :as reagent]
+            [frontend.authorization.core :refer [form]]))
 
-(defn hello-world
-  [] [:div [:p "Kosrakis"]]
-  )
+
+(defn hello-world [] 
+  [:div
+   [form]])
 
 (defn start! []
-  (js/console.log test)
   (reagent/render
    [hello-world]
    (js/document.getElementById "app-container")))
-
 (start!)
