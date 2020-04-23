@@ -15,11 +15,13 @@
    (row "password" [:input {:field :password :id :pass}])])
 
 
-(defn form []
+(defn form 
+  "Takes as an input an is-authorized cursor from app-state"
+  [is-authorized]
   (let [doc (atom {})]
     (fn []
       [:div
        [:div.page-header [:h1 "Login form"]]
        [bind-fields form-template doc]
-       [:button {:on-click #(js/console.log @doc)} "Login"]
+       [:button {:on-click #(reset! is-authorized true)} "Login"]
        [:label (str @doc)]])))

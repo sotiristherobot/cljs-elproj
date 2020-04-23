@@ -1,5 +1,5 @@
 (ns frontend.renderer.core
-  (:require [reagent.core :as reagent :refer [atom]]
+  (:require [reagent.core :as reagent :refer [atom cursor]]
             [frontend.authorization.core :refer [form]]))
 
 ; global state of the application
@@ -9,14 +9,17 @@
   [:div
    [:h1 "This is the main component"]])
 
-(defn app []
-  (if-not (= (get-in @app-state [:is-authorized]) true)
-    [form]
+(defn app 
+  "app function takes the state as a parameter if the user is not authorized then render a form component and pass as a cursor with
+the is-authorized key from state"
+  [state]
+  (if-not (= (get-in @state [:is-authorized]) true)
+    [form (cursor state [:is-authorized])]
     [main]
     ))
 
 (defn start! []
   (reagent/render
-   [app]
+   [app app-state]
    (js/document.getElementById "app-container")))
 (start!)
