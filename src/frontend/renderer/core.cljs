@@ -1,15 +1,16 @@
 (ns frontend.renderer.core
   (:require [reagent.core :as reagent :refer [atom cursor]]
             [frontend.authorization.core :refer [form]]
-            [frontend.simplerouter.core :refer [get-path]]
+            [frontend.simplerouter.core :refer [get-path set-path!]]
 ))
 
 ; global state of the application
 (defonce app-state (atom {:is-authorized true}))
 
 (defn main []
-   [:div
-    [:h1 "This is the main component"]])
+  (set-path! "/home")
+  [:div
+   [:h1 "This is the main component"]])
 
 (defn app 
   "app function takes the state as a parameter if the user is not authorized then render a form component and pass as a cursor with
