@@ -8,7 +8,6 @@
 (defonce app-state (atom {:is-authorized true}))
 
 (defn main []
-  (set-path! "/home")
   [:div
    [:h1 "This is the main component"]])
 
@@ -17,8 +16,12 @@
 the is-authorized key from state"
   [state]
   (if-not (= (get-in @state [:is-authorized]) true)
-    [form (cursor state [:is-authorized])]
-    [main]))
+    (do
+      (set-path! "/login")
+      [form (cursor state [:is-authorized])])
+    (do
+      (set-path! "/home")
+      [main])))
 
 (defn show-path-middleware! 
   "Simple middleware which shows the current path above every component. Needs to be changed to be activated only on dev mode"
