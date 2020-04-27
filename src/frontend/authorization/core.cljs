@@ -17,11 +17,13 @@
 
 (defn form
       "Takes as an input an is-authorized cursor from app-state"
-      [is-authorized]
+      [is-authorized username]
       (let [doc (atom {})]
            (fn []
                [:div
                 [:div.page-header [:h1 "Login form"]]
                 [bind-fields form-template doc]
-                [:button {:on-click #(reset! is-authorized true)} "Login"]
+                [:button {:on-click (fn []
+                                        (reset! username "sotiris")
+                                        (reset! is-authorized true))}"Login"]
                 [:label (str @doc)]])))

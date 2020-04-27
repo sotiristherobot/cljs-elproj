@@ -5,11 +5,18 @@
             ))
 
 ; global state of the application
-(defonce app-state (atom {:is-authorized false}))
+(defonce app-state (atom {:is-authorized false :username nil}))
 
-(defn home []
+
+(defn side-bar [username]
       [:div
-       "Home Component"])
+       [:h4 (str "Hello " username)]])
+
+(defn home-container [state]
+      (let [username (get @state :username)]
+           [:div
+            [side-bar username]
+            "Home Component"]))
 
 (defn show-path-component
       "Simple middleware which shows the current path above every component. Needs to be changed to be activated only on dev mode"
@@ -17,28 +24,24 @@
       [:div
        [:h5 (str "Current path is: " path)]])
 
-(defn main [state]
+(defn app
+      "app function takes the state as a parameter if the user is not authorized then render a form component and pass as a cursor with
+    the is-authorized key from state"
+      [state]
       (if-not (= (get-in @state [:is-authorized]) true)
               (do
                 (set-path! "/login")
                 [:div
                  [show-path-component (get-path)]
-                 [form (cursor state [:is-authorized])]])
+                 [form (cursor state [:is-authorized]) (cursor state [:username])]])
               (do
                 (set-path! "/home")
                 [:div
                  [show-path-component (get-path)]
-                 [home]])))
-
-(defn app
-      "app function takes the state as a parameter if the user is not authorized then render a form component and pass as a cursor with
-    the is-authorized key from state"
-      [state]
-      [:div
-       [main state]])
+                 [home-container state]])))
 
 (defn start! []
       (reagent/render
-        (app app-state)
+        [app app-state]
         (js/document.getElementById "app-container")))
 (start!)
