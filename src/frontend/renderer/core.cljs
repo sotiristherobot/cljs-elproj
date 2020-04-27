@@ -9,14 +9,14 @@
 
 
 (defn side-bar [username]
-      [:div
+      [:div {:style {:margin "20px"}}
        [:h4 (str "Hello " username)]])
 
 (defn home-container [state]
       (let [username (get @state :username)]
-           [:div
+           [:div {:style {:display "flex" :justify-content "center"}}
             [side-bar username]
-            "Home Component"]))
+            [:div {:style {:margin "20px"}} [:h4 "Home Component"]]]))
 
 (defn show-path-component
       "Simple middleware which shows the current path above every component. Needs to be changed to be activated only on dev mode"
