@@ -24,24 +24,24 @@
       [:div
        [:h5 (str "Current path is: " path)]])
 
-(defn app
+(defn app!
       "app function takes the state as a parameter if the user is not authorized then render a form component and pass as a cursor with
     the is-authorized key from state"
-      [state]
-      (if-not (= (get-in @state [:is-authorized]) true)
+      []
+      (if-not (= (get-in @app-state [:is-authorized]) true)
               (do
                 (set-path! "/login")
                 [:div
                  [show-path-component (get-path)]
-                 [form (cursor state [:is-authorized]) (cursor state [:username])]])
+                 [form (cursor app-state [:is-authorized]) (cursor app-state [:username])]])
               (do
                 (set-path! "/home")
                 [:div
                  [show-path-component (get-path)]
-                 [home-container state]])))
+                 [home-container app-state]])))
 
 (defn start! []
       (reagent/render
-        [app app-state]
+        [app!]
         (js/document.getElementById "app-container")))
 (start!)
