@@ -10,8 +10,7 @@
       ; Path is relative to the compiled js file (main.js in our case)
       (.loadURL @main-window (str "file://" js/__dirname "/public/index.html"))
       (.on @main-window "closed" #(reset! main-window nil))
-      (.openDevTools @main-window)
-      )
+      (.openDevTools @main-window))
 
 (defn main []
       (.on app "window-all-closed" #(when-not (= js/process.platform "darwin")
