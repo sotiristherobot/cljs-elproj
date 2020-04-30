@@ -1,12 +1,15 @@
 (ns frontend.events
-  (:require [re-frame.core :refer [reg-event-db reg-sub]]))
+  (:require [re-frame.core :refer [reg-event-db reg-sub]]
+            [frontend.db :refer [initial-app-state]]))
 
 ;; EVENTS SECTION
 
 ;; initial app-state
 (reg-event-db 
  :initialize-app-state
- (fn [_ _] {:name "Sotiris" :last "Ioannou"}))
+ (fn [_ _] 
+   (println initial-app-state)
+   initial-app-state))
 
 ;; registers an event - action - that changes the :last symbol to something
 (reg-event-db
