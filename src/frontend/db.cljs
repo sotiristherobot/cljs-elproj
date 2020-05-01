@@ -6,5 +6,5 @@
    :user {
           :is-authorized false
           :first nil
-          :last nil
-          }})
+          :username nil
+          :last nil}})

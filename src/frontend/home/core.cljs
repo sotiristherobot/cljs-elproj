@@ -15,8 +15,11 @@
        [generate-menu-list ["Home" "About"]]])
 
 
+;; temporary function to check re-frame functionality
+(defn home-new []
+  [:p "home"])
 
-(defn home-container [state]
+(defn home [state]
       (let [username (get @state :username)]
            [:div {:style {:display "flex"}}
             [side-bar username]

@@ -11,6 +11,13 @@
    (println initial-app-state)
    initial-app-state))
 
+;; authorize user
+(reg-event-db
+ :authorize-user
+ (fn [state _]
+   (println "authorizing")
+   (assoc-in state [:user :is-authorized] true)))
+
 ;; registers an event - action - that changes the :last symbol to something
 (reg-event-db
  :change-last
@@ -19,7 +26,7 @@
 
 ;; SUBSCRIPTIONS SECTION
 ;; registers a subscription that returns the lastname from the app-state
-(reg-sub
- :initialize-db
- (fn [state _]
-   (:last state)))
+
+(reg-sub :is-user-authorized? (fn [state _] 
+                                 (get-in state [:user :is-authorized])
+                                 ))

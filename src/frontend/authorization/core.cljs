@@ -1,5 +1,6 @@
 (ns frontend.authorization.core
   (:require [reagent.core :as reagent :refer [atom]]
+            [re-frame.core :refer [dispatch]]
             [reagent-forms.core :refer [bind-fields]]))
 
 (defn row
@@ -17,13 +18,12 @@
 
 (defn form
       "Takes as an input an is-authorized cursor from app-state"
-      [is-authorized username]
+      []
       (let [doc (atom {})]
            (fn []
                [:div
                 [:div.page-header [:h1 "Login form"]]
                 [bind-fields form-template doc]
                 [:button {:on-click (fn []
-                                        (reset! username "sotiris")
-                                        (reset! is-authorized true))}"Login"]
+                                      (dispatch [:authorize-user]))}"Login"]
                 [:label (str @doc)]])))
