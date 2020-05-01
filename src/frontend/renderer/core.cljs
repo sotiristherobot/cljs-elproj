@@ -2,6 +2,7 @@
   (:require [reagent.core :as reagent :refer [atom cursor]]
             [re-frame.core :as rf :refer [subscribe dispatch dispatch-sync]]
             [frontend.events]
+            [frontend.subs]
             [frontend.db]
             [frontend.authorization.core :refer [form]]
             [frontend.home.core :refer [home home-new]]
