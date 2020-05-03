@@ -5,6 +5,6 @@
   {
    :user {
           :is-authorized false
-          :first nil
-          :username nil
-          :last nil}})
+          :first "Sotiris"
+          :username "sot"
+          :last "Ioannou"}})
