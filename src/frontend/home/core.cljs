@@ -16,11 +16,10 @@
 
 
 ;; temporary function to check re-frame functionality
-(defn home-new []
-  [:p "home"])
+(defn home[user-info]
+  (println "Rerendering home-new")
+  (let [name (:first user-info)]
+    [:div {:style {:display "flex"}}
+     [side-bar name]
+     [:div {:style {:margin "20px" :display "flex" :flexGrow 1}} [:h4 "Home Component"]]]))
 
-(defn home [state]
-      (let [username (get @state :username)]
-           [:div {:style {:display "flex"}}
-            [side-bar username]
-            [:div {:style {:margin "20px" :display "flex" :flexGrow 1}} [:h4 "Home Component"]]]))

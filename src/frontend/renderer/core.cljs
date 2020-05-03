@@ -5,7 +5,7 @@
             [frontend.subs]
             [frontend.db]
             [frontend.authorization.core :refer [form]]
-            [frontend.home.core :refer [home home-new]]
+            [frontend.home.core :refer [home]]
             [frontend.simplerouter.core :refer [get-path set-path!]]))
 
 ;; println writes to console.log
@@ -29,9 +29,9 @@
   (let [is-user-authorized @(subscribe [:is-user-authorized?])]
     (println (str "Home Container is rerendering"))
     (if (true? is-user-authorized)
-      [home-new]
-      [form])
-))
+      (let [user-info @(subscribe [:get-user])]
+        [home user-info])
+      [form])))
 
 (defn start! []
       (reagent/render
