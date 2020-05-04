@@ -4,7 +4,11 @@
  
  :dependencies [[reagent "0.8.1"]
                 [re-frame "RELEASE"]
-                [reagent-forms "0.5.43"]]
+                [reagent-forms "0.5.43"]
+                ; for http requests
+                [day8.re-frame/http-fx "v0.2.0"]
+                [cljs-ajax "0.8.0"]]
+
  
  :builds {:main {:target :node-script
                  :output-to "resources/main.js"
