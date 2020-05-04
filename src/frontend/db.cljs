@@ -7,4 +7,5 @@
           :is-authorized false
           :first "Sotiris"
           :username "sot"
-          :last "Ioannou"}})
+          :last "Ioannou"}
+   :posts nil})

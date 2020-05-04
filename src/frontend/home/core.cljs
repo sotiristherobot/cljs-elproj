@@ -1,4 +1,5 @@
-(ns frontend.home.core)
+(ns frontend.home.core
+  (:require [re-frame.core :as rf :refer [subscribe dispatch]]))
 
 
 (defn generate-menu-list [menu-items]
@@ -14,12 +15,21 @@
        [:h4 (str "Hello " username)]
        [generate-menu-list ["Home" "About"]]])
 
+(defn render-posts []
+  "Render posts"
+  (let [posts @(subscribe [:get-posts])]
+    [:div (str posts)]))
+
 
 ;; temporary function to check re-frame functionality
 (defn home[user-info]
   (println "Rerendering home-new")
   (let [name (:first user-info)]
+    (dispatch [:fetch-posts])
     [:div {:style {:display "flex"}}
      [side-bar name]
-     [:div {:style {:margin "20px" :display "flex" :flexGrow 1}} [:h4 "Home Component"]]]))
+     [:div {:style {:margin "20px" :display "flex" :flexGrow 1}}
+      [:div
+       [:h4 "Home Component"]
+       [render-posts]]]]))
 

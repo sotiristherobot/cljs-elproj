@@ -1,5 +1,7 @@
 (ns frontend.events
-  (:require [re-frame.core :refer [reg-event-db]]
+  (:require [re-frame.core :refer [reg-event-db reg-event-fx]]
+            [day8.re-frame.http-fx]
+            [ajax.core :as ajax]
             [frontend.db :refer [initial-app-state]]))
 
 ;; EVENTS SECTION
@@ -23,3 +25,17 @@
  :change-last
  (fn [state new-value]
    (assoc state :last new-value)))
+
+(reg-event-db
+ :fetch-posts-success
+ (fn [state new-posts]
+   (assoc state :posts new-posts)))
+
+(reg-event-fx
+ :fetch-posts
+ (fn [state _]
+   {:http-xhrio 
+    {:method :get 
+     :uri "https://jsonplaceholder.typicode.com/todos/1" 
+     :response-format (ajax/json-response-format)
+     :on-success [:fetch-posts-success]}}))

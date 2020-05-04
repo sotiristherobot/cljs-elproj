@@ -6,20 +6,21 @@
             [frontend.db]
             [frontend.authorization.core :refer [form]]
             [frontend.home.core :refer [home]]
-            [frontend.simplerouter.core :refer [get-path set-path!]]))
+            [frontend.simplerouter.core :refer [get-path set-path!]]
+            [ajax.core :refer [GET]]))
 
 ;; println writes to console.log
 (enable-console-print!)
 
 ;; initialize app-state
 (dispatch-sync [:initialize-app-state])
-
+ 
 (defn show-path-component
       "Simple middleware which shows the current path above every component.
        Needs to be changed to be activated only on dev mode"
-      [path]
+  [path]
       [:div
-       [:h5 (str "Current path is: " )]])
+       [:h5 (str "Current path is: ")]])
 
 (defn app
       "app function takes the state as a parameter if the user is not
