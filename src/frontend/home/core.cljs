@@ -15,13 +15,18 @@
        [:h4 (str "Hello " username)]
        [generate-menu-list ["Home" "About"]]])
 
+
+(defn render-post [post-value _]
+  [:div 
+   {:style {:padding "20px" :margin "0 0 10px 0" :backgroundColor "#EDD1B0"}} 
+   (:title post-value)])
+
 (defn render-posts []
   "Render posts"
   (let [posts @(subscribe [:get-posts])]
     (when posts
       [:div
-       (map (fn [value _]
-              [:div {:style {:padding "20px" :margin "0 0 10px 0" :backgroundColor "#EDD1B0"}} (:title value)])
+       (map render-post
             (last posts))])))
 
 ;; temporary function to check re-frame functionality
