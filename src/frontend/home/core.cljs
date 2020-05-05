@@ -18,14 +18,17 @@
 (defn render-posts []
   "Render posts"
   (let [posts @(subscribe [:get-posts])]
-    [:div (str posts)]))
-
+    (when posts
+      [:div
+       (map (fn [value _]
+              [:div (:title value)])
+            (last posts))])))
 
 ;; temporary function to check re-frame functionality
 (defn home[user-info]
   (println "Rerendering home-new")
+  (dispatch [:fetch-posts])
   (let [name (:first user-info)]
-    (dispatch [:fetch-posts])
     [:div {:style {:display "flex"}}
      [side-bar name]
      [:div {:style {:margin "20px" :display "flex" :flexGrow 1}}

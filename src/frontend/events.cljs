@@ -36,6 +36,6 @@
  (fn [state _]
    {:http-xhrio 
     {:method :get 
-     :uri "https://jsonplaceholder.typicode.com/todos/1" 
-     :response-format (ajax/json-response-format)
+     :uri "https://jsonplaceholder.typicode.com/posts" 
+     :response-format (ajax/json-response-format {:keywords? true})
      :on-success [:fetch-posts-success]}}))
