@@ -21,7 +21,7 @@
     (when posts
       [:div
        (map (fn [value _]
-              [:div (:title value)])
+              [:div {:style {:padding "20px" :margin "0 0 10px 0" :backgroundColor "#EDD1B0"}} (:title value)])
             (last posts))])))
 
 ;; temporary function to check re-frame functionality
