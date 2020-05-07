@@ -7,10 +7,13 @@
             [frontend.authorization.core :refer [form]]
             [frontend.home.core :refer [home]]
             [frontend.simplerouter.core :refer [get-path set-path!]]
-            [ajax.core :refer [GET]]))
+            [ajax.core :refer [GET]]
+            [devtools.core :as devtools]))
 
 ;; println writes to console.log
 (enable-console-print!)
+;; enable devtools
+(devtools/install!)
 
 ;; initialize app-state
 (dispatch-sync [:initialize-app-state])
