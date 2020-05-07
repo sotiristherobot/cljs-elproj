@@ -16,18 +16,22 @@
        [:h4 (str "Hello " username)]
        [generate-menu-list ["Home" "About"]]])
 
-
+;; print values inside let
+;; _(println @post-state)
 (defn render-post [post-value _]
-  (let [post-state (r/atom {:is-deleting true})
+  (let [post-state (r/atom {:is-deleting false})
         title (:title post-value)]
     [(fn [post-value]
-       [:div
-        {:style {:padding "20px" :margin "0 0 10px 0" :backgroundColor "#EDD1B0" :display "flex" :flexDirection "row" :justifyContent "space-between"}}
-        [:div title]
-        (if-not (= (get @post-state :is-deleting) false)
-          [:button {:on-click (fn [] 
-                                (reset! post-state {:is-deleting false}))} "Delete"]
-          [:div "Deleting"])])]))
+       (let [
+             is-delete-mode (get @post-state :is-deleting)
+             post-bgcolor (if (= is-delete-mode true) "red" "#EDD1B0")]
+         [:div
+          {:style {:padding "20px" :margin "0 0 10px 0" :backgroundColor post-bgcolor  :display "flex" :flexDirection "row" :justifyContent "space-between"}}
+          [:div title]
+          (if (= is-delete-mode false)
+            [:button {:on-click (fn [] 
+                                 (reset! post-state {:is-deleting true}))} "Delete"]
+            [:div "Deleting"])]))]))
 
 (defn render-posts []
   "Render posts"
@@ -46,6 +50,6 @@
      [side-bar name]
      [:div {:style {:margin "20px" :display "flex" :flexGrow 1}}
       [:div
-       [:h4 "Home Component"]
+       [:h4 "The Home Component"]
        [render-posts]]]]))
 
