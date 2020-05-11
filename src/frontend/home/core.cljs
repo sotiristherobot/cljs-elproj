@@ -24,14 +24,18 @@
     [(fn [post-value]
        (let [
              is-delete-mode (get @post-state :is-deleting)
-             post-bgcolor (if (= is-delete-mode true) "red" "#EDD1B0")]
+             post-bgcolor (if (= is-delete-mode true) "yellow" "#EDD1B0")]
          [:div
           {:style {:padding "20px" :margin "0 0 10px 0" :backgroundColor post-bgcolor  :display "flex" :flexDirection "row" :justifyContent "space-between"}}
-          [:div title]
+          [:div {:style {:display "flex" :flexWrap "wrap" :padding "0 10px 0 0"}} title]
           (if (= is-delete-mode false)
             [:button {:on-click (fn [] 
                                  (reset! post-state {:is-deleting true}))} "Delete"]
-            [:div "Deleting"])]))]))
+            [:div
+             [:div "Marked for deletion"]
+             [:button {:on-click (fn []
+                                   (reset! post-state {:is-deleting false})
+                                   )} "Undo"]])]))]))
 
 (defn render-posts []
   "Render posts"
