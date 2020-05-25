@@ -4,20 +4,16 @@
             [ajax.core :as ajax]
             [frontend.db :refer [initial-app-state]]))
 
-;; EVENTS SECTION
-
 ;; initial app-state
-(reg-event-db 
+(reg-event-db
  :initialize-app-state
- (fn [_ _] 
-   (println initial-app-state)
+ (fn [_ _]
    initial-app-state))
 
-;; authorize user
+;; User authorization
 (reg-event-db
  :authorize-user
  (fn [state _]
-   (println "authorizing")
    (assoc-in state [:user :is-authorized] true)))
 
 ;; registers an event - action - that changes the :last symbol to something
@@ -34,8 +30,8 @@
 (reg-event-fx
  :fetch-posts
  (fn [state _]
-   {:http-xhrio 
-    {:method :get 
-     :uri "https://jsonplaceholder.typicode.com/posts" 
+   {:http-xhrio
+    {:method :get
+     :uri "https://jsonplaceholder.typicode.com/posts"
      :response-format (ajax/json-response-format {:keywords? true})
      :on-success [:fetch-posts-success]}}))

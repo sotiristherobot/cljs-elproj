@@ -25,8 +25,17 @@
        (let [
              is-delete-mode (get @post-state :is-deleting)
              post-bgcolor (if (= is-delete-mode true) "yellow" "#EDD1B0")]
-         [:div
-          {:style {:padding "20px" :margin "0 0 10px 0" :backgroundColor post-bgcolor  :display "flex" :flexDirection "row" :justifyContent "space-between"}}
+         [:div 
+          
+          {
+           :class "kostis"
+           :draggable true
+           :on-drag-start (fn [event] 
+                            (let [dragged-item (.-target event)]
+                              (.log js/console (.querySelectorAll js/document ".kostis"))
+                                (.log js/console (.getBoundingClientRect dragged-item))
+                              ))
+           :style {:padding "20px" :margin "0 0 10px 0" :backgroundColor post-bgcolor  :display "flex" :flexDirection "row" :justifyContent "space-between"}}
           [:div {:style {:display "flex" :flexWrap "wrap" :padding "0 10px 0 0"}} title]
           (if (= is-delete-mode false)
             [:button {:on-click (fn [] 
@@ -40,7 +49,10 @@
 (defn render-posts []
   "Render posts"
   (let [posts @(subscribe [:get-posts])]
-    (when posts
+    (when posts 
+      (r/after-render (fn []
+                        (println (.querySelector js/document ".kostis"))
+                        (println "component rendered")))
       [:div
        (map render-post
             (last posts))])))

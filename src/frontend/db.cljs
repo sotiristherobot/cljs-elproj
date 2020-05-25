@@ -5,7 +5,7 @@
   {
    :user {
           :is-authorized false
-          :first "Sotiris"
-          :username "sot"
-          :last "Ioannou"}
+          :first ""
+          :username ""
+          :last ""}
    :posts nil})
